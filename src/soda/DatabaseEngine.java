@@ -1,5 +1,9 @@
 package soda;
 
-public interface DatabaseEngine {
+import java.util.List;
 
+public interface DatabaseEngine {
+    void set(Object o);
+
+    List<Object> get(Object id);
 }
