@@ -14,9 +14,11 @@ public class Parser {
         return words;
     }
 
-    public boolean checkStringFormat() {
+    public boolean checkStringFormat(String[] query) {
         boolean rightFormat = false;
+        for (String s : query) {
 
+        }
         return rightFormat;
     }
 

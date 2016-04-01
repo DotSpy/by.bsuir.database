@@ -23,7 +23,7 @@ public class IOConsole {
 
     public void startConsole() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Enter String");
+        System.out.println("Enter command");
         String s = "";
         try {
             s = br.readLine();
@@ -32,6 +32,14 @@ public class IOConsole {
         }
         String arr[] = s.split(" ", 2);
         String command = arr[0];
-        controller.execute(Commands.valueOf(command), s);
+        try {
+            controller.execute(Commands.valueOf(command), s);
+        } catch (java.lang.IllegalArgumentException ex) {
+            System.out.println("Wrong command");//TODO help list
+        }
+    }
+
+    public void printMessage(String message) {
+        System.out.println(message);
     }
 }
