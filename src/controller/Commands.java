@@ -10,5 +10,5 @@ public enum Commands {
     DELETE_TABLE,
     UPDATE_TABLE,
     UPDATE,
-    COMMANDS
+    NO_COMMAND
 }
