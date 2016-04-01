@@ -1,7 +1,7 @@
 package controller;
 
 public class Controller {
-    public void execute(Commands command) {
+    public void execute(Commands command, String query) {
         switch (command) {
             case SELECT:
                 break;

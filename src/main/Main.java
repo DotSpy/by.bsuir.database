@@ -1,8 +1,11 @@
 package main;
 
+import view.IOConsole;
+
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
+        IOConsole ioConsole = IOConsole.getInstance();
+        ioConsole.startConsole();
     }
 }
