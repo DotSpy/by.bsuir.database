@@ -8,6 +8,9 @@ public class Record implements Serializable {
     private List<String> charField;
     private List<Integer> intField;
 
+    public Record() {
+    }
+
     public List<String> getCharField() {
         return charField;
     }
