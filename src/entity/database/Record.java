@@ -1,9 +1,11 @@
 package entity.database;
 
+import com.sun.istack.internal.NotNull;
+
 import java.io.Serializable;
 
 public class Record implements Serializable {
-
+    @NotNull
     private Key id;
     private String charField;
     private Integer intField;

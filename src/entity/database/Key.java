@@ -1,6 +1,11 @@
 package entity.database;
 
-public class Key {
+import com.sun.istack.internal.NotNull;
+
+import java.io.Serializable;
+
+public class Key implements Serializable {
+    @NotNull
     private int id;
 
     public Key(int id) {

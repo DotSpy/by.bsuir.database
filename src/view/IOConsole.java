@@ -19,7 +19,7 @@ public class IOConsole {
         return (self == null) ? new IOConsole() : self;
     }
 
-    Controller controller = new Controller();
+    private Controller controller = new Controller();
 
     public void startConsole() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
