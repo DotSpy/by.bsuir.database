@@ -1,37 +1,40 @@
 package entity.database;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class Record implements Serializable {
 
-    private List<String> charField;
-    private List<Integer> intField;
+    private Key id;
+    private String charField;
+    private Integer intField;
+
+    public Record(String charField, Key id, Integer intField) {
+        this.charField = charField;
+        this.id = id;
+        this.intField = intField;
+    }
 
     public Record() {
     }
 
-    public List<String> getCharField() {
+    public String getCharField() {
+
         return charField;
     }
 
-    public void setCharField(List<String> charField) {
+    public void setCharField(String charField) {
         this.charField = charField;
     }
 
-    public List<Integer> getIntField() {
+    public Integer getIntField() {
         return intField;
     }
 
-    public void setIntField(List<Integer> intField) {
+    public void setIntField(Integer intField) {
         this.intField = intField;
     }
 
-    public void addCharField(String s) {
-        this.charField.add(s);
-    }
-
-    public void addIntField(Integer i) {
-        this.intField.add(i);
+    public void setId(Key id) {
+        this.id = id;
     }
 }
