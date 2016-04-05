@@ -2,7 +2,7 @@ package logic;
 
 public class Logic {
 
-    QueryExecuter queryExecuter = new QueryExecuter();
+    private QueryExecuter queryExecuter = new QueryExecuter();
 
     public String selectQuery(String query) {
         String result = "Command failed";

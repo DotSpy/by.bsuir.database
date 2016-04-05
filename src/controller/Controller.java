@@ -1,12 +1,14 @@
 package controller;
 
+import com.sun.istack.internal.NotNull;
 import logic.Logic;
 import view.IOConsole;
 
 public class Controller {
 
-    Logic logic = new Logic();
+    private Logic logic = new Logic();
 
+    @NotNull
     public void execute(Commands command, String query) {
         switch (command) {
             case SELECT:

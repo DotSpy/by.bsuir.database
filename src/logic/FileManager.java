@@ -1,10 +1,14 @@
 package logic;
 
+import com.sun.istack.internal.NotNull;
+
 import java.io.File;
 
 public class FileManager {
 
+    @NotNull
     private File keyValueFile;
+    @NotNull
     private File valueFile;
 
     private static FileManager self = new FileManager();
