@@ -23,6 +23,9 @@ public class Controller {
             case CREATE:
                 logic.createQuery(query);
                 break;
+            case SET_ADDRESS:
+                logic.setAddress(query);
+                break;
             default:
                 IOConsole ioConsole = IOConsole.getInstance();
                 ioConsole.printMessage("Command currently in development");

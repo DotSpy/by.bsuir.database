@@ -10,5 +10,6 @@ public enum Commands {
     DELETE_TABLE,
     UPDATE_TABLE,
     UPDATE,
-    NO_COMMAND
+    NO_COMMAND,
+    SET_ADDRESS
 }

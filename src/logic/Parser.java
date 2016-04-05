@@ -2,6 +2,8 @@ package logic;
 
 import controller.Commands;
 
+import java.util.Arrays;
+
 class Parser {
 
     private Commands command;
@@ -14,10 +16,12 @@ class Parser {
         return words;
     }
 
-    public boolean checkStringFormat(String[] query) {
+    public boolean checkStringFormat(String[] query) throws WrongStringFormatException {
         boolean rightFormat = false;
         for (String s : query) {
-
+            if (false) {
+                throw new WrongStringFormatException("Wrong syntax : " + Arrays.toString(query));
+            }
         }
         return rightFormat;
     }
