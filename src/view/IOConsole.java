@@ -23,19 +23,22 @@ public class IOConsole {
 
     public void startConsole() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Enter command");
-        String s = "";
-        try {
-            s = br.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String arr[] = s.split(" ", 2);
-        String command = arr[0];
-        try {
-            controller.execute(Commands.valueOf(command), s);
-        } catch (java.lang.IllegalArgumentException ex) {
-            System.out.println("Wrong command");//TODO help list
+        String command = "";
+        while (!command.equals("EXIT")) {
+            System.out.println("Enter command");
+            String s = "";
+            try {
+                s = br.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            String arr[] = s.split(" ", 2);
+            command = arr[0].toUpperCase();
+            try {
+                controller.execute(Commands.valueOf(command), s);
+            } catch (java.lang.IllegalArgumentException ex) {
+                System.out.println("Wrong command");//TODO help list
+            }
         }
     }
 
