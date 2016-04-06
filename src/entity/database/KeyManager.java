@@ -5,6 +5,7 @@ import java.util.List;
 
 public class KeyManager {
     private static KeyManager self = null;
+    private List<Key> keyList = new ArrayList<Key>();
 
     private KeyManager() {
         super();
@@ -14,8 +15,6 @@ public class KeyManager {
     public static synchronized KeyManager getInstance() {
         return (self == null) ? new KeyManager() : self;
     }
-
-    private List<Key> keyList = new ArrayList<Key>();
 
     public void setKeyList(List<Key> keyList) {
         this.keyList = keyList;
