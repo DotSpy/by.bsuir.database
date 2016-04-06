@@ -1,5 +1,7 @@
 package entity.database;
 
+import logic.FileManager;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,5 +28,10 @@ public class KeyManager {
 
     public List<Key> getKeyList() {
         return keyList;
+    }
+
+    public void fillKeyList() {
+        FileManager fileManager = FileManager.getInstance();
+        fileManager.
     }
 }
