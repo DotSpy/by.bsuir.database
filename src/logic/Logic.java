@@ -8,7 +8,7 @@ public class Logic {
         String result = "Command failed";
         String[] parsedQue = parser.parse(query);
         if (parsedQue[0].toLowerCase().equals("all")) {
-            result = fm.
+//            result = fm.
         }
 //        parser.parse(query);
         return result;

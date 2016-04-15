@@ -1,5 +1,6 @@
 package logic;
 
+import dao.FileManager;
 import entity.database.Key;
 import entity.database.Record;
 
@@ -38,4 +39,7 @@ public class RecordEditor {
         this.keyList = keyList;
     }
 
+    public void readDataBaseValues() {
+//        fm.
+    }
 }
