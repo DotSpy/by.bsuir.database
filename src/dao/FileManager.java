@@ -77,10 +77,8 @@ public class FileManager {
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(keyValueFile);
-            for (Key k : keys) {
-                ObjectOutputStream oos = new ObjectOutputStream(fos);
-                oos.writeObject(k);
-            }
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(keys);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

@@ -21,7 +21,7 @@ public class Record implements Serializable {
 
     public Record() {
     }
-
+//TODO: обрыв связи hardbit в файл записать невыполненные комманды и при обрыве связи пинговать\
     public String getCharField() {
 
         return charField;
