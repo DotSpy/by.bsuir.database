@@ -19,7 +19,7 @@ public class FileManager {
     @NotNull
     private File keyValueFile;
     @NotNull
-    private File valueFile;
+    private static File valueFile;
 
     private static FileManager self = new FileManager();
 
@@ -58,6 +58,31 @@ public class FileManager {
 //            e.printStackTrace();
 //        }
 //    }
+
+    public List<Record> readAllRecords() {
+        File file = valueFile;
+        List<Record> records = new ArrayList<>();
+        if (file.exists()) {
+            ObjectInputStream ois = null;
+            try {
+                ois = new ObjectInputStream(new FileInputStream(valueFile));
+                Record r;
+                while (true) {
+                    r = (Record) ois.readObject();
+                    records.add(r);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (ois != null) ois.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return records;
+    }
 
     public List<Key> readKeyList() {
         List<Key> keys = new ArrayList<Key>();
@@ -111,5 +136,80 @@ public class FileManager {
                     e.printStackTrace();
                 }
         }
+    }
+
+    public static void writeRecordToBinary(Record record) {
+        ObjectOutputStream out = null;
+        try {
+            if (!valueFile.exists()) out = new ObjectOutputStream(new FileOutputStream(valueFile));
+            else out = new AppendingObjectOutputStream(new FileOutputStream(valueFile, true));
+            out.writeObject(record);
+            out.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (out != null) out.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void writeRecordToBinary(Record record, String filename) {
+        File file = new File(filename);
+        ObjectOutputStream out = null;
+        try {
+            if (!file.exists()) out = new ObjectOutputStream(new FileOutputStream(file));
+            else out = new AppendingObjectOutputStream(new FileOutputStream(file, true));
+            out.writeObject(record);
+            out.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (out != null) out.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public Record readRecordFromBinaryFile(int id) {
+        Record r = null;
+        if (valueFile.exists()) {
+            ObjectInputStream ois = null;
+            try {
+                ois = new ObjectInputStream(new FileInputStream(valueFile));
+                int i = 0;
+                while (id != i) {
+                    r = (Record) ois.readObject();
+                    i++;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (ois != null) ois.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return r;
+    }
+
+    public void deleteRecord(int id) {
+        String tmpName = valueFile + "temp";
+        for (int i = 1; i <= 6; i++) {            //key.size
+            if (i == id) {
+                continue;
+            }
+            writeRecordToBinary(readRecordFromBinaryFile(i), tmpName);//write to tmp file
+        }
+        File oldFile = valueFile;
+        oldFile.delete();
+        File newFile = new File(tmpName);
+        newFile.renameTo(oldFile);
     }
 }

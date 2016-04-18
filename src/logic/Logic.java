@@ -1,22 +1,32 @@
 package logic;
 
+import dao.FileManager;
+
+import java.util.stream.Collectors;
+
 public class Logic {
 
     private Parser parser = new Parser();
+    private FileManager fm = FileManager.getInstance();
 
     public String selectQuery(String query) {
-        String result = "Command failed";
         String[] parsedQue = parser.parse(query);
-        if (parsedQue[0].toLowerCase().equals("all")) {
-//            result = fm.
+        if (parsedQue[0].toUpperCase().equals("ALL")) {
+            return String.join(", ", fm.readAllRecords().stream().map(Object::toString)
+                    .collect(Collectors.joining(", ")));
+        } else {
+            try {
+                return fm.readRecordFromBinaryFile(Integer.parseInt(parsedQue[0])).toString();
+            } catch (NumberFormatException e) {
+                return "ID must be a number";
+            }
         }
-//        parser.parse(query);
-        return result;
     }
 
     public String createQuery(String query) {
         String result = "Command failed";
         String[] parsedQue = parser.parse(query);
+
         return result;
     }
 

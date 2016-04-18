@@ -1,11 +1,14 @@
 package entity.database;
 
+import dao.FileManager;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class RecordManager {
     private static RecordManager self = null;
     private List<Record> recordList = new ArrayList<Record>();
+    private FileManager fm = FileManager.getInstance();
 
     private RecordManager() {
         super();

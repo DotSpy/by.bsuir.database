@@ -1,6 +1,12 @@
 package initializer;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.Writer;
 
 //TODO add this class to installer
 public class Initializer {
@@ -15,12 +21,13 @@ public class Initializer {
     public static Initializer getInstance() {
         return self;
     }
+
     private void initializeFromZero() {
-        try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream(new File(valuesFilePath = (new File(".").getAbsolutePath() + "/values"))), "utf-8"))) {
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+//                new FileOutputStream(new File(valuesFilePath = (new File(".").getAbsolutePath() + "/values"))), "utf-8"))) {
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream(new File(keysFilePath = (new File(".").getAbsolutePath() + "/keys"))), "utf-8"))) {
 //            writer.write("something");

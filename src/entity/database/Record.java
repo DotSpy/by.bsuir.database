@@ -42,4 +42,12 @@ public class Record implements Serializable {
     public void setId(Key id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "Record{" +
+                "id=" + id +
+                ", data='" + charField + '\'' +
+                '}';
+    }
 }
