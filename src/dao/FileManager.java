@@ -136,7 +136,7 @@ public class FileManager {
         }
     }
 
-    public static void writeRecordToBinary(Record record) {
+    public void writeRecordToBinary(Record record) {
         ObjectOutputStream out = null;
         try {
             if (!valueFile.exists()) out = new ObjectOutputStream(new FileOutputStream(valueFile));
@@ -154,7 +154,7 @@ public class FileManager {
         }
     }
 
-    public static void writeRecordToBinary(Record record, String filename) {
+    public void writeRecordToBinary(Record record, String filename) {
         File file = new File(filename);
         ObjectOutputStream out = null;
         try {

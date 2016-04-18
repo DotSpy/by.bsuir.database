@@ -1,6 +1,8 @@
 package logic;
 
 import dao.FileManager;
+import entity.database.Key;
+import entity.database.Record;
 
 import java.util.stream.Collectors;
 
@@ -25,8 +27,11 @@ public class Logic {
 
     public String createQuery(String query) {
         String result = "Command failed";
-        String[] parsedQue = parser.parse(query);
-
+        Record r = new Record();
+        Key k = new Key((fm.readKeyList().size() + 1));
+        r.setId(k);
+        r.setCharField(query);
+        fm.writeRecordToBinary(r);
         return result;
     }
 
