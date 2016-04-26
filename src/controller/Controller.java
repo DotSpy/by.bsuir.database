@@ -6,28 +6,27 @@ import view.IOConsole;
 
 public class Controller {
 
-    private Logic logic = new Logic();
-
     @NotNull
     public void execute(Commands command, String query) {
+        Logic logic = new Logic();
+        IOConsole ioConsole = IOConsole.getInstance();
         switch (command) {
             case SELECT:
-                logic.selectQuery(query);
+                ioConsole.printMessage(logic.selectQuery(query));
                 break;
             case DELETE:
-                logic.deleteQuery(query);
+                ioConsole.printMessage(logic.deleteQuery(query));
                 break;
             case UPDATE:
-                logic.updateQuery(query);
+                ioConsole.printMessage(logic.updateQuery(query));
                 break;
             case CREATE:
-                logic.createQuery(query);
+                ioConsole.printMessage(logic.createQuery(query));
                 break;
             case SET_ADDRESS:
-                logic.setAddress(query);
+                ioConsole.printMessage(logic.setAddress(query));
                 break;
             default:
-                IOConsole ioConsole = IOConsole.getInstance();
                 ioConsole.printMessage("Command currently in development");
                 break;
         }

@@ -43,6 +43,10 @@ public class Record implements Serializable {
         this.id = id;
     }
 
+    public Key getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
         return "Record{" +

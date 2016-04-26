@@ -35,7 +35,7 @@ public class IOConsole {
             String arr[] = s.split(" ", 2);
             command = arr[0].toUpperCase();
             try {
-                controller.execute(Commands.valueOf(command), s);
+                controller.execute(Commands.valueOf(arr[0].toUpperCase()), s);
             } catch (java.lang.IllegalArgumentException ex) {
                 System.out.println("Wrong command");//TODO help list
             }

@@ -1,12 +1,6 @@
 package initializer;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.Writer;
+import java.io.*;
 
 //TODO add this class to installer
 public class Initializer {
@@ -28,15 +22,27 @@ public class Initializer {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-        try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream(new File(keysFilePath = (new File(".").getAbsolutePath() + "/keys"))), "utf-8"))) {
-//            writer.write("something");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+//                new FileOutputStream(new File(keysFilePath = (new File(".").getAbsolutePath() + "/keys"))), "utf-8"))) {
+////            writer.write("something");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        File f = new File(valuesFilePath);
+//        try {
+//            if (!f.exists()) {
+//                f.createNewFile();
+//                f = new File(keysFilePath);
+//                f.createNewFile();
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public void checkInitialization() {
+        valuesFilePath = new File(".").getAbsolutePath() + "/values";
+        keysFilePath = new File(".").getAbsolutePath() + "/keys";
         if (!(new File(new File(".").getAbsolutePath() + "values").isFile()) && !(new File(new File(".").getAbsolutePath() + "keys").isFile())) {
             initializeFromZero();
         }//TODO return boolean and add interaction with it

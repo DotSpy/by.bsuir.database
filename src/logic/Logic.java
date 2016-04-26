@@ -13,12 +13,12 @@ public class Logic {
 
     public String selectQuery(String query) {
         String[] parsedQue = parser.parse(query);
-        if (parsedQue[0].toUpperCase().equals("ALL")) {
+        if (parsedQue[1].toUpperCase().equals("ALL")) {
             return String.join(", ", fm.readAllRecords().stream().map(Object::toString)
                     .collect(Collectors.joining(", ")));
         } else {
             try {
-                return fm.readRecordFromBinaryFile(Integer.parseInt(parsedQue[0])).toString();
+                return fm.readRecordFromBinaryFile(Integer.parseInt(parsedQue[1])).toString();
             } catch (NumberFormatException e) {
                 return "ID must be a number";
             }
@@ -26,13 +26,16 @@ public class Logic {
     }
 
     public String createQuery(String query) {
-        String result = "Command failed";
+        if (parser.getParams(query) == null || parser.getParams(query).equals("")) {
+            return "Bad args";
+        }
+        String result = "Command failed";//TODO : transactional
         Record r = new Record();
         Key k = new Key((fm.readKeyList().size() + 1));
         r.setId(k);
-        r.setCharField(query);
-        fm.writeRecordToBinary(r);
-        return result;
+        r.setCharField(parser.getParams(query));
+        fm.writeRecordToBinary(r, false);
+        return "Added: " + parser.getParams(query);
     }
 
     public String deleteQuery(String query) {

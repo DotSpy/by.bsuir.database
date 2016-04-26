@@ -16,6 +16,14 @@ class Parser {
         return words;
     }
 
+    String getParams(String s) {
+        String[] arr = s.split(" ", 2);
+        if (arr.length > 1) {
+            return arr[1];
+        }
+        return null;
+    }
+
     public boolean checkStringFormat(String[] query) throws WrongStringFormatException {
         boolean rightFormat = false;
         for (String s : query) {
