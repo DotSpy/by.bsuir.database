@@ -67,7 +67,7 @@ public class FileManager {
                     records.add(r);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+//                e.printStackTrace();
             } finally {
                 try {
                     if (ois != null) ois.close();
@@ -143,24 +143,27 @@ public class FileManager {
     }
 
     public void writeRecordToBinary(Record record, boolean toTmp) {
-        File file;
+        File tmpValueFile;
+        File tmpKeyFile;
         if (toTmp) {
-            file = new File(valueFile + "temp");
+            tmpValueFile = new File(valueFile + "temp");
+            tmpKeyFile = new File(keyValueFile + "temp");
         } else {
-            file = new File(valueFile.getPath());
+            tmpValueFile = new File(valueFile.getPath());
+            tmpKeyFile = new File(keyValueFile.getPath());
         }
         ObjectOutputStream out = null;
         try {
-            if (!file.exists()) out = new ObjectOutputStream(new FileOutputStream(file));
-            else out = new AppendableObjectOutputStream(new FileOutputStream(file, true));
+            if (!tmpValueFile.exists()) out = new ObjectOutputStream(new FileOutputStream(tmpValueFile));
+            else out = new AppendableObjectOutputStream(new FileOutputStream(tmpValueFile, true));
             out.writeObject(record);
             out.flush();
-            readFromBinaryFileRecord(file.getAbsolutePath());
-            if (!keyValueFile.exists()) out = new ObjectOutputStream(new FileOutputStream(keyValueFile));
-            else out = new AppendableObjectOutputStream(new FileOutputStream(keyValueFile, true));
-            out.writeObject(record.getId());
+            //        readFromBinaryFileRecord(tmpValueFile.getAbsolutePath());
+            if (!tmpKeyFile.exists()) out = new ObjectOutputStream(new FileOutputStream(tmpKeyFile));
+            else out = new AppendableObjectOutputStream(new FileOutputStream(tmpKeyFile, true));
+            out.writeObject(record.getKey());
             out.flush();
-            readFromBinaryFileKey(keyValueFile.getAbsolutePath());
+            //        readFromBinaryFileKey(tmpKeyFile.getAbsolutePath());
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -170,50 +173,7 @@ public class FileManager {
                 e.printStackTrace();
             }
         }
-//        ObjectOutputStream out = null;
-//        try {
-//            //record
-//            if (!file.exists()) out = new ObjectOutputStream(new FileOutputStream(file));
-//            else out = new AppendableObjectOutputStream(new FileOutputStream(file, true));
-//            out.writeObject(record);
-//            out.flush();
-//            readFromBinaryFileRecord(file.getAbsolutePath());
-//            //keys
-//            if (!keyValueFile.exists()) out = new ObjectOutputStream(new FileOutputStream(keyValueFile));
-//            else out = new AppendableObjectOutputStream(new FileOutputStream(keyValueFile, true));
-//            out.writeObject(record.getId());
-//            out.flush();
-//            readFromBinaryFileRecord(keyValueFile.getAbsolutePath());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        } finally {
-//            try {
-//                if (out != null) out.close();
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
-
     }
-
-//    public void writeRecordToBinary(Record record, String filename) {
-//        File file = new File(filename);
-//        ObjectOutputStream out = null;
-//        try {
-//            if (!file.exists()) out = new ObjectOutputStream(new FileOutputStream(file));
-//            else out = new AppendableObjectOutputStream(new FileOutputStream(file, true));
-//            out.writeObject(record);
-//            out.flush();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        } finally {
-//            try {
-//                if (out != null) out.close();
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
 
     public Record readRecordFromBinaryFile(int id) {
         Record r = null;
@@ -244,16 +204,28 @@ public class FileManager {
     }
 
     public void deleteRecord(int id) {
-        String tmpName = valueFile + "temp";
-        for (int i = 1; i <= 6; i++) {            //key.size
-            if (i == id) {
-                continue;
+        String tmpValueFile = valueFile + "temp";
+        String tmpKeyFile = keyValueFile + "temp";
+        Record r;
+        Key k;
+        for (int i = 1; i <= readKeyList().size(); i++) {            //key.size
+            if (i < id) {
+                writeRecordToBinary(readRecordFromBinaryFile(i), true);//write to tmp file
+            } else if (i > id) {
+                r = readRecordFromBinaryFile(i);
+                k = r.getKey();
+                k.setId(k.getId() - 1);
+                r.setKey(k);
+                writeRecordToBinary(readRecordFromBinaryFile(i), true);
             }
-            writeRecordToBinary(readRecordFromBinaryFile(i), true);//write to tmp file
         }
         File oldFile = valueFile;
         oldFile.delete();
-        File newFile = new File(tmpName);
+        File newFile = new File(tmpValueFile);
+        newFile.renameTo(oldFile);
+        oldFile = keyValueFile;
+        oldFile.delete();
+        newFile = new File(tmpKeyFile);
         newFile.renameTo(oldFile);
     }
 

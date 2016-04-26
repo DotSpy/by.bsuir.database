@@ -32,7 +32,7 @@ public class Logic {
         String result = "Command failed";//TODO : transactional
         Record r = new Record();
         Key k = new Key((fm.readKeyList().size() + 1));
-        r.setId(k);
+        r.setKey(k);
         r.setCharField(parser.getParams(query));
         fm.writeRecordToBinary(r, false);
         return "Added: " + parser.getParams(query);
@@ -40,7 +40,17 @@ public class Logic {
 
     public String deleteQuery(String query) {
         String result = "Command failed";
-        String[] parsedQue = parser.parse(query);
+        String[] parsedQue = parser.parse(query); // TODO: DELETE ALL
+        if (parsedQue[1].toUpperCase().equals("ALL")) {
+// all
+        } else {
+            try {
+                fm.deleteRecord(Integer.parseInt(parsedQue[1]));
+                return "Deleted record with id = " + Integer.parseInt(parsedQue[1]);
+            } catch (NumberFormatException e) {
+                return "ID must be a number";
+            }
+        }
         return result;
     }
 

@@ -39,11 +39,11 @@ public class Record implements Serializable {
         this.intField = intField;
     }
 
-    public void setId(Key id) {
+    public void setKey(Key id) {
         this.id = id;
     }
 
-    public Key getId() {
+    public Key getKey() {
         return id;
     }
 
