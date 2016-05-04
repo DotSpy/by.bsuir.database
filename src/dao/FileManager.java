@@ -204,11 +204,12 @@ public class FileManager {
     }
 
     public void deleteRecord(int id) {
-        String tmpValueFile = valueFile + "temp";
-        String tmpKeyFile = keyValueFile + "temp";
+        String pathValueFile = valueFile.getAbsolutePath();
+        String pathKeyFile = keyValueFile.getAbsolutePath();
         Record r;
         Key k;
-        for (int i = 1; i <= readKeyList().size(); i++) {            //key.size
+        int keyCount = readKeyList().size();
+        for (int i = 1; i <= keyCount; i++) {            //key.size
             if (i < id) {
                 writeRecordToBinary(readRecordFromBinaryFile(i), true);//write to tmp file
             } else if (i > id) {
@@ -219,14 +220,12 @@ public class FileManager {
                 writeRecordToBinary(readRecordFromBinaryFile(i), true);
             }
         }
-        File oldFile = valueFile;
+        valueFile.delete();
+        File oldFile = new File(pathValueFile);
         oldFile.delete();
-        File newFile = new File(tmpValueFile);
-        newFile.renameTo(oldFile);
-        oldFile = keyValueFile;
+        valueFile = new File(keyValueFile.getAbsoluteFile() + "temp");
+        oldFile = new File(pathKeyFile);
         oldFile.delete();
-        newFile = new File(tmpKeyFile);
-        newFile.renameTo(oldFile);
     }
 
     public static void readFromBinaryFileKey(String filename) {
