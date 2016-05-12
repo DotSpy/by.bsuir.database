@@ -11,5 +11,6 @@ public enum Commands {
     UPDATE_TABLE,
     UPDATE,
     NO_COMMAND,
-    SET_ADDRESS
+    SET_ADDRESS,
+    EXIT
 }

@@ -1,8 +1,8 @@
 package dao;
 
 import com.sun.istack.internal.NotNull;
-import entity.database.Key;
-import entity.database.Record;
+import database.Key;
+import database.Record;
 import initializer.Initializer;
 
 import java.io.*;
@@ -158,6 +158,7 @@ public class FileManager {
             else out = new AppendableObjectOutputStream(new FileOutputStream(tmpValueFile, true));
             out.writeObject(record);
             out.flush();
+            out.close();
             //        readFromBinaryFileRecord(tmpValueFile.getAbsolutePath());
             if (!tmpKeyFile.exists()) out = new ObjectOutputStream(new FileOutputStream(tmpKeyFile));
             else out = new AppendableObjectOutputStream(new FileOutputStream(tmpKeyFile, true));
@@ -198,9 +199,14 @@ public class FileManager {
                 }
             }
         } else {
-            System.out.print("No DB files");
+            System.out.print("No DB files \n");
         }
         return r;
+    }
+
+    public void deleteAll() {
+        valueFile.delete();
+        keyValueFile.delete();
     }
 
     public void deleteRecord(int id) {
@@ -217,15 +223,15 @@ public class FileManager {
                 k = r.getKey();
                 k.setId(k.getId() - 1);
                 r.setKey(k);
-                writeRecordToBinary(readRecordFromBinaryFile(i), true);
+                writeRecordToBinary(r, true);
             }
         }
         valueFile.delete();
-        File oldFile = new File(pathValueFile);
-        oldFile.delete();
-        valueFile = new File(keyValueFile.getAbsoluteFile() + "temp");
-        oldFile = new File(pathKeyFile);
-        oldFile.delete();
+        File oldFile = new File(pathValueFile + "temp");
+        oldFile.renameTo(valueFile);
+        keyValueFile.delete();
+        oldFile = new File(pathKeyFile + "temp");
+        oldFile.renameTo(keyValueFile);
     }
 
     public static void readFromBinaryFileKey(String filename) {

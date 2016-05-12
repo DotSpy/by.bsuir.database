@@ -1,4 +1,4 @@
-package entity.database;
+package database;
 
 import dao.FileManager;
 

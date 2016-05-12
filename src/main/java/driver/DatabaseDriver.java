@@ -1,4 +1,4 @@
-//package driver;
+//package main.java.driver;
 //
 //import java.sql.*;
 //import java.util.Properties;

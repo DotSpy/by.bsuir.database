@@ -1,4 +1,4 @@
-package soda;
+package main.java.soda;
 
 import java.util.List;
 

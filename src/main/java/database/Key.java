@@ -1,4 +1,4 @@
-package entity.database;
+package database;
 
 import com.sun.istack.internal.NotNull;
 

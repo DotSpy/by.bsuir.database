@@ -26,6 +26,8 @@ public class Controller {
             case SET_ADDRESS:
                 ioConsole.printMessage(logic.setAddress(query));
                 break;
+            case EXIT:
+                break;
             default:
                 ioConsole.printMessage("Command currently in development");
                 break;

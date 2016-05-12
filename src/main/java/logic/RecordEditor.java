@@ -1,8 +1,8 @@
 package logic;
 
 import dao.FileManager;
-import entity.database.Key;
-import entity.database.Record;
+import database.Key;
+import database.Record;
 
 import java.util.List;
 
