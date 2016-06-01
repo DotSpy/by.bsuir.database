@@ -1,0 +1,15 @@
+# Configure this Discovery Server
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1111/eureka/
+  instance:
+    leaseRenewalIntervalInSeconds: 30
+
+server:
+  port: 5555   # HTTP (Tomcat) port
+
+# Discovery Server Dashboard uses FreeMarker.  Don't want Thymeleaf templates
+spring:
+  application:
+     name: dummy-service Number 2  # Service registers under this name
