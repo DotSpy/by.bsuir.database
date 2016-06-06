@@ -2,7 +2,7 @@
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:1111/eureka/
+      defaultZone: http://${eureka.host:localhost}:${eureka.port:8761}/eureka/
   instance:
     leaseRenewalIntervalInSeconds: 30
 
@@ -11,5 +11,7 @@ server:
 
 # Discovery Server Dashboard uses FreeMarker.  Don't want Thymeleaf templates
 spring:
+  profiles:
+    active: native
   application:
-     name: dummy-service Number 2  # Service registers under this name
+     name: dummy-service-number-2  # Service registers under this name
